@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('trash_volumes', function (Blueprint $table) {
             $table->id();
-            $table->string('tempat_sampah');
+            $table->string('lokasi');
             $table->integer('volume'); // persen, misal 0 - 100%
             $table->timestamp('waktu')->useCurrent();
 });

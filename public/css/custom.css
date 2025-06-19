@@ -1,53 +1,58 @@
-/* custom.css */
-
+/* NAVBAR */
 .navbar {
-  background-color: #33a35e !important;
-  /* warna navbar biru gelap */
+  background-color: #f0f2f5 !important;
+  border-bottom: 1px solid #dee2e6;
 }
 
-.navbar-brand span {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: #ecf0f1;
+.navbar-brand {
+  color: #6366F1 !important;
 }
 
 .nav-link {
-  color: #fff !important;
-  font-weight: 600;
-  transition: color 0.3s;
+  color: #212529 !important;
 }
 
-.nav-link:hover {
-  color: #000000 !important;
-  /* warna kuning saat hover */
-}
-
-#datetime {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1rem;
-  color: #bdc3c7;
+.nav-link:hover,
+.nav-link.active {
+  color: #6366F1 !important;
 }
 
 
 
+/* BODYYYYYY */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-/* Footer */
-.footer {
-  background-color: #33a35e;
-  color: #ecf0f1;
-  padding: 1rem 0;
-  text-align: center;
+main {
+  flex: 1;
+}
+
+
+
+
+/* FOOTER */
+footer {
+  background-color: #e9ecef !important;
+  color: #6c757d;
+  padding: 15px 0;
   font-size: 0.9rem;
+  border-top: 1px solid #dee2e6;
+  text-align: center;
 }
 
-/* Footer link (jika ada) */
-.footer a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
+.progress-bar-text {
+  font-weight: bold;
+  font-size: 14px;
 }
 
-.footer a:hover {
-  color: #000;
-  text-decoration: underline;
+.card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.07);
 }

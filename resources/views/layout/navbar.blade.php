@@ -1,34 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-  <a class="navbar-brand d-flex align-items-center" href="#">
-    <img src="{{ asset('img/akucantik.jpg') }}" alt="Logo" width="40" height="40" class="rounded-circle me-2" />
-    {{-- <span>Dashboard Monitoring Volume Sampah</span> --}}
-  </a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg shadow-sm bg-white px-3">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+      <img src="{{ asset('img/sampah2.png') }}" alt="Logo" width="40" height="40" class="rounded-circle me-2" />
+      {{-- <span class="fw-semibold text-dark">Monitoring Sampah</span> --}}
+    </a>
 
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('monitoring.index') }}">Monitoring</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url('/data-sampah') }}">Data Sampah</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url('/laporan') }}">Laporan</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url('/pengaturan') }}">Pengaturan</a>
-      </li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link {{ request()->is('/') ? 'active text-primary' : '' }}" href="{{ url('/') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ request()->is('monitoring') ? 'active text-primary' : '' }}" href="{{ route('monitoring.index') }}">Monitoring</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ request()->is('data-sampah') ? 'active text-primary' : '' }}" href="{{ url('/data-sampah') }}">Data Sampah</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ request()->is('laporan') ? 'active text-primary' : '' }}" href="{{ url('/laporan') }}">Laporan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ request()->is('pengaturan') ? 'active text-primary' : '' }}" href="{{ url('/pengaturan') }}">Pengaturan</a>
+        </li>
+      </ul>
 
-    </ul>
-    <div class="text-white fw-bold d-flex align-items-center" id="datetime"></div>
+      <div class="text-dark fw-semibold d-flex align-items-center" id="datetime"></div>
+    </div>
   </div>
 </nav>
 

@@ -1,6 +1,5 @@
-<footer class="footer">
-  <div class="container">
-    <p>© 2025 Monitoring Sampah. All rights reserved.</p>
-    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+<footer class="footer mt-auto py-3 bg-light border-top">
+  <div class="container text-center text-muted small">
+    © {{ date('Y') }} Smart Trash Monitoring. All rights reserved.
   </div>
 </footer>
