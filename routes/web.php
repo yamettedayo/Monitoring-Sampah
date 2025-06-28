@@ -6,25 +6,30 @@ use App\Models\TrashVolume;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    $tong = \App\Models\TrashVolume::all();
-    $jumlahTong = $tong->count();
-    $rataVolume = $tong->avg('volume') ?? 0;
-    $tongPenuh = $tong->filter(fn ($item) => ($item->volume / 100) * 100 > 80)->count();
 
-    // Buat label 7 hari terakhir
-    $labels = collect(range(0, 6))->map(function ($i) {
-        return Carbon::now()->subDays(6 - $i)->format('D');
-    });
+// Route::get('/', function () {
+//     $tong = \App\Models\TrashVolume::all();
+//     $jumlahTong = $tong->count();
+//     $rataVolume = $tong->avg('volume') ?? 0;
+//     $tongPenuh = $tong->filter(fn ($item) => ($item->volume / 100) * 100 > 80)->count();
 
-    // Ambil data volume per hari
-    $values = collect($labels)->map(function ($labelDate) {
-        return \App\Models\TrashVolume::whereDate('waktu', Carbon::parse($labelDate))->avg('volume') ?? 0;
-    });
+//     // Buat label 7 hari terakhir
+//     $labels = collect(range(0, 6))->map(function ($i) {
+//         return Carbon::now()->subDays(6 - $i)->format('D');
+//     });
 
-    return view('Home', compact('jumlahTong', 'rataVolume', 'tongPenuh', 'labels', 'values'));
-});
+//     // Ambil data volume per hari
+//     $values = collect($labels)->map(function ($labelDate) {
+//         return \App\Models\TrashVolume::whereDate('waktu', Carbon::parse($labelDate))->avg('volume') ?? 0;
+//     });
+
+//     return view('Home', compact('jumlahTong', 'rataVolume', 'tongPenuh', 'labels', 'values'));
+// });
+
+Route::get('/', [HomeController::class, 'index']);
+
 
 
 
@@ -72,3 +77,19 @@ Route::get('/api/latest-tong', function () {
         'lokasi' => $data->lokasi
     ]);
 });
+
+use App\Http\Controllers\ExportController;
+Route::get('/trash/export', [ExportController::class, 'export'])->name('trash.export');
+
+use App\Exports\TrashExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/export-excel', function () {
+    return Excel::download(new TrashExport, 'data-sampah.xlsx');
+})->name('trash.export');
+
+use App\Http\Controllers\TrashLogController;
+Route::get('/data-riwayat/export', [TrashLogController::class, 'export'])->name('trashlog.export');
+
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');

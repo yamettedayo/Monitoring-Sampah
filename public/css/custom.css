@@ -56,3 +56,50 @@ footer {
   border: none;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.07);
 }
+
+
+
+/* --- Input dan tombol lebih halus dan clean --- */
+.input-group input,
+.form-select,
+.btn {
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.input-group input:focus,
+.form-select:focus,
+.btn:focus {
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+  border-color: #86b7fe;
+}
+
+/* --- Hover lembut untuk tabel --- */
+.table-hover tbody tr:hover {
+  background-color: #f2f4f6;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* --- Tombol utama --- */
+.btn-success {
+  background-color: #198754;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+}
+
+/* --- Badge status volume tinggi (optional) --- */
+.badge-full {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.3em 0.6em;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+}

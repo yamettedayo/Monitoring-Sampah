@@ -26,12 +26,24 @@ class SensorController extends Controller
             ]
         );
 
-        // Simpan log historis (untuk grafik)
-        TrashLog::create([
-            'lokasi' => $request->lokasi,
-            'volume' => $request->volume,
-            'waktu'  => Carbon::now('Asia/Jakarta')
-        ]);
+        // // Simpan log historis (untuk grafik)
+        // TrashLog::create([
+        //     'lokasi' => $request->lokasi,
+        //     'volume' => $request->volume,
+        //     'waktu'  => Carbon::now('Asia/Jakarta')
+        // ]);
+
+        // Simpan log historis (hanya jika selisih waktu >= X menit)
+        $lastLog = TrashLog::where('lokasi', $request->lokasi)->latest()->first();
+        $interval = 10; // simpan per 10 menit
+
+        if (!$lastLog || $lastLog->created_at->diffInMinutes(now()) >= $interval) {
+            TrashLog::create([
+                'lokasi' => $request->lokasi,
+                'volume' => $request->volume,
+                'waktu'  => Carbon::now('Asia/Jakarta')
+            ]);
+        }
 
         return response()->json(['message' => 'Data berhasil disimpan'], 201);
     }

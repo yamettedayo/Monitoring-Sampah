@@ -3,14 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\TrashVolume;
+use App\Models\TrashLog;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TrashVolumeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Tabel data terakhir
         $data = TrashVolume::orderBy('waktu', 'desc')->get();
-        return view('trash.index', compact('data'));
+
+        // Tabel log historis
+        $query = TrashLog::query();
+
+        if ($request->has('search')) {
+            $query->where('lokasi', 'like', '%' . $request->search . '%');
+        }
+
+        $show = $request->input('show', 10);
+        $logs = $query->orderByDesc('waktu')->paginate($show);
+
+        return view('trash.index', compact('data', 'logs'));
     }
 
     public function monitoring()
@@ -40,13 +54,11 @@ class TrashVolumeController extends Controller
         return redirect()->route('monitoring.index')->with('success', 'Data tong berhasil ditambahkan.');
     }
 
-
-
     public function edit($id)
-{
-    $trash = TrashVolume::findOrFail($id);
-    return view('trash.edit', compact('trash'));
-}
+    {
+        $trash = TrashVolume::findOrFail($id);
+        return view('trash.edit', compact('trash'));
+    }
 
     public function update(Request $request, $id)
     {
@@ -73,9 +85,4 @@ class TrashVolumeController extends Controller
 
         return redirect()->route('monitoring.index')->with('success', 'Data berhasil dihapus.');
     }
-
-    
-
-
 }
-

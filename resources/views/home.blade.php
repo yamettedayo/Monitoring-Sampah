@@ -45,13 +45,27 @@
     </div>
 
     <div class="text-end text-muted small">
-        Data diperbarui terakhir: {{ now()->format('d M Y, H:i') }}
+    {{-- Total volume 7 hari terakhir: {{ array_sum($values ?? []) }} Liter? --}}
+    Total volume 7 hari terakhir: <strong>{{ $totalVolume7Hari }}</strong> Liter
+    </div>
+    <br>
+    <div class="text-end text-muted small">
+        {{-- Data diperbarui terakhir: {{ now()->format('d M Y, H:i') }} --}}
+        Data diperbarui terakhir: {{ now()->setTimezone('Asia/Jakarta')->format('d M Y, H:i') }}
     </div>
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('grafikHome').getContext('2d');
+    const rawData = {!! json_encode($values ?? []) !!};
+    // const colors = rawData.map(value => {
+    //     if (value > 800) return '#dc3545';     // merah
+    //     else if (value > 400) return '#ffc107'; // kuning
+    //     else return '#28a745';                 // hijau
+    // });
     const grafik = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -81,6 +95,14 @@
                     }
                 },
                 tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataset.label || '';
+                            const value = context.parsed.y;
+                            const tanggal = context.label;
+                            return `${value} Liter pada ${tanggal}`;
+                        }
+                    },
                     backgroundColor: '#333',
                     titleFont: { size: 14 },
                     bodyFont: { size: 12 }
@@ -93,13 +115,21 @@
                 },
                 y: {
                     beginAtZero: true,
-                    max: 100,
-                    ticks: { color: '#444', font: { size: 12 } },
+                    max: 1000,
+                    ticks: {
+                        stepSize: 100,
+                        color: '#444',
+                        font: { size: 12 },
+                        callback: function(value) {
+                            return value + ' L'; // Tambahkan label Liter
+                        }
+                    },
                     grid: {
                         color: 'rgba(0,0,0,0.05)',
                         drawBorder: false
                     }
                 }
+
             }
         }
     });
