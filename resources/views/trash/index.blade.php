@@ -10,7 +10,7 @@
             <div class="d-flex justify-content-between align-items-start flex-wrap mb-4 border-bottom pb-3">
                 <div>
                     <h4 class="fw-bold mb-1">
-                        <i class="bi bi-clipboard-data text-primary me-2"></i> Data Volume Sampah
+                        <i class="bi bi-clipboard-data text-primary me-2"></i> Data Tong Sampah
                     </h4>
                     <p class="text-muted small mb-0">Lihat daftar tong sampah aktif.</p>
                 </div>
@@ -31,6 +31,7 @@
                     <thead class="bg-dark text-white">
                         <tr>
                             <th class="text-center">No</th>
+                            {{-- <th>Volume (Liter)</th> --}}
                             <th>Volume (Liter)</th>
                             <th>Lokasi</th>
                             <th>Waktu</th>
@@ -42,7 +43,8 @@
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td>{{ $item->volume }}</td>
                                 <td>{{ $item->lokasi }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->waktu)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}</td>
+                                {{-- <td>{{ \Carbon\Carbon::parse($item->waktu)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}</td> --}}
+                                <td>{{ \Carbon\Carbon::parse($item->waktu)->format('Y-m-d H:i:s') }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -61,7 +63,7 @@
             <div class="d-flex justify-content-between align-items-start flex-wrap mb-4 border-bottom pb-3">
                 <div>
                     <h4 class="fw-bold mb-1">
-                        <i class="bi bi-clock-history text-secondary me-2"></i> Riwayat Volume Sampah
+                        <i class="bi bi-clock-history text-secondary me-2"></i> Riwayat  Sampah
                     </h4>
                     <p class="text-muted small mb-0">Lihat riwayat volume sampah dan ekspor sesuai kebutuhan.</p>
                 </div>
@@ -92,6 +94,7 @@
                     <thead class="bg-dark text-white">
                         <tr>
                             <th class="text-center">No</th>
+                            {{-- <th>Volume (Liter)</th> --}}
                             <th>Volume (Liter)</th>
                             <th>Lokasi</th>
                             <th>Waktu</th>
@@ -103,7 +106,7 @@
                                 <td class="text-center">{{ $logs->firstItem() + $index }}</td>
                                 <td>{{ $item->volume }}</td>
                                 <td>{{ $item->lokasi }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->waktu)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->waktu)->format('Y-m-d H:i:s') }}</td>
                             </tr>
                         @empty
                             <tr>

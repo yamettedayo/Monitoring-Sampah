@@ -27,9 +27,9 @@
         {{-- <li class="nav-item">
           <a class="nav-link {{ request()->is('laporan') ? 'active text-primary' : '' }}" href="{{ url('/laporan') }}">Laporan</a>
         </li> --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{ request()->is('pengaturan') ? 'active text-primary' : '' }}" href="{{ url('/pengaturan') }}">Pengaturan</a>
-        </li>
+        </li> --}}
       </ul>
 
       <div class="text-dark fw-semibold d-flex align-items-center" id="datetime"></div>

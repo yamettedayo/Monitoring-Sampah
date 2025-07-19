@@ -6,7 +6,7 @@
 <div class="container">
     <div class="text-center mb-4">
         <h1 class="fw-bold">Selamat Datang di Aplikasi Monitoring Sampah</h1>
-        <p class="text-muted">Sistem ini digunakan untuk memantau kapasitas volume sampah secara real-time.</p>
+        <p class="text-muted">Sistem ini digunakan untuk memantau kapasitas tempah sampah secara real-time.</p>
     </div>
 
     <div class="row text-center mb-4">

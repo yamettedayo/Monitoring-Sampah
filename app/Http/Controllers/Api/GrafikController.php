@@ -53,9 +53,9 @@ class GrafikController extends Controller
                             return [
                                 'volume' => $item->volume,
                                 'waktu'  => Carbon::parse($item->waktu)
-                                                ->timezone('Asia/Jakarta')
-                                                ->toIso8601String()
-                                                // ->format('Y-m-d H:i') // ⬅️ pakai format biasa
+                                                // ->timezone('Asia/Jakarta')
+                                                // ->toIso8601String()
+                                                ->format('Y-m-d H:i') // ⬅️ pakai format biasa
                             ];
                         });
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('lokasi');
             $table->integer('volume'); // persen, misal 0 - 100%
             $table->timestamp('waktu')->useCurrent();
+            $table->timestamps();
 });
     }
 

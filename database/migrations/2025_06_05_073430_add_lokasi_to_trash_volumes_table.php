@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('trash_volumes', function (Blueprint $table) {
-            $table->string('lokasi')->after('id');
-        });
+        // Schema::table('trash_volumes', function (Blueprint $table) {
+        //     $table->string('lokasi')->after('id');
+        // });
     }
 
     public function down()

@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!data) return;
 
                 const volume = parseFloat(data.volume);
-                const kapasitasMaks = 100;
+                const kapasitasMaks = 10;
                 const persen = Math.min(100, (volume / kapasitasMaks) * 100);
 
                 document.querySelector(`.volume-text`).textContent = volume;
