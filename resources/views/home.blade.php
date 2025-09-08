@@ -115,9 +115,9 @@
                 },
                 y: {
                     beginAtZero: true,
-                    max: 1000,
+                    max: 100,
                     ticks: {
-                        stepSize: 100,
+                        stepSize: 10,
                         color: '#444',
                         font: { size: 12 },
                         callback: function(value) {

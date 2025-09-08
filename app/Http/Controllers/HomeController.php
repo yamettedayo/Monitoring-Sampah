@@ -16,7 +16,7 @@ class HomeController extends Controller
         $jumlahTong = $tong->count();
         $rataVolume = $tong->avg('volume') ?? 0;
         // $tongPenuh = $tong->filter(fn ($item) => ($item->volume / 100) * 100 > 80)->count();
-        $tongPenuh = TrashVolume::where('volume', '>', 80)->count();
+        $tongPenuh = TrashVolume::where('volume', '>', 8)->count();
 
 
         // Ambil data grafik dari trash_logs

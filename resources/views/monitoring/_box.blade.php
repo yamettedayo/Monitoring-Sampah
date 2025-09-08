@@ -1,6 +1,6 @@
 @php
     use Carbon\Carbon;
-    $kapasitas_maks = 100;
+    $kapasitas_maks = 10;
     $persentase = min(100, ($item->volume / $kapasitas_maks) * 100);
 
     if ($persentase < 50) {
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 y: {
                     title: { display: true, text: 'Volume (Liter)' },
                     beginAtZero: true,
-                    max: 100
+                    max: 10
                 }
             }
         }

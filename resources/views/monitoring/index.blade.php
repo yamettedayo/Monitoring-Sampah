@@ -2,6 +2,16 @@
 
 @section('title', 'Monitoring Volume Sampah')
 
+@php
+    $adaTongPenuh = false;
+    foreach ($data as $item) {
+        if ($item->volume > 8) {
+            $adaTongPenuh = true;
+            break;
+        }
+    }
+@endphp
+
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -15,7 +25,6 @@
         @forelse ($data as $item)
             @include('monitoring._box', ['item' => $item])
         @empty
-            {{-- Dummy Box Jika Tidak Ada Data --}}
             <div class="col-12">
                 <div class="card shadow-sm text-center p-5">
                     <h4 class="mb-3">Belum ada data tong sampah</h4>
@@ -27,17 +36,58 @@
     </div>
 </div>
 
+{{-- Container Toast --}}
+<div class="position-fixed top-0 end-0 p-3" id="toast-container" style="z-index: 1055"></div>
 
-{{-- Notifikasi Toast Peringatan Penuh --}}
-{{-- <div class="position-fixed top-0 end-0 p-3" style="z-index: 1051">
-    <div id="toast-alert" class="toast align-items-center text-white bg-danger border-0" role="alert">
-        <div class="d-flex">
-            <div class="toast-body">⚠ Tong sampah penuh! Harap segera dikosongkan.</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-    </div>
-</div> --}}
-
-
-
+{{-- Kirim data volume ke JS --}}
+<script>
+    const tongData = @json($data);
+</script>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const kapasitasMaks = 10;
+    const shownToasts = new Set();
+    const toastContainer = document.getElementById('toast-container');
+
+    function tampilkanToast(lokasi) {
+        if (shownToasts.has(lokasi)) return;
+
+        const toastId = `toast-${btoa(lokasi).replace(/=/g, '')}`;
+        const toastEl = document.createElement('div');
+        toastEl.className = 'toast align-items-center text-white bg-danger border-0 mb-2';
+        toastEl.setAttribute('role', 'alert');
+        toastEl.setAttribute('aria-live', 'assertive');
+        toastEl.setAttribute('aria-atomic', 'true');
+        toastEl.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    ⚠ Tong <strong>${lokasi}</strong> sudah penuh! Harap segera dikosongkan
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        `;
+
+        toastContainer.appendChild(toastEl);
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+
+        shownToasts.add(lokasi);
+    }
+
+    function cekVolume() {
+        tongData.forEach(item => {
+            const persen = (item.volume / kapasitasMaks) * 100;
+            if (persen >= 80) {
+                tampilkanToast(item.lokasi);
+            }
+        });
+    }
+
+    cekVolume(); // pertama kali
+    setInterval(cekVolume, 5000); // real-time
+});
+</script>
+@endpush
